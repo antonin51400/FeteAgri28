@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fête de l'Agriculture de la Marne 2028</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="mobile-bar">
+    <strong>Agri Marne 2028</strong>
+    <button id="menuBtn" aria-label="Menu">☰</button>
+  </header>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#dashboard"><span>JA</span><b>Agri Marne 2028</b><small>Jeunes Agriculteurs Suippes</small></a>
+    <nav id="nav">
+      <button data-target="dashboard">⌂ Dashboard</button>
+      <button data-target="admin">✎ Gestion admin</button>
+      <button data-target="public">◎ Public</button>
+      <button data-target="planning">◷ Tâches</button>
+      <button data-target="benevoles">◌ Bénévoles</button>
+      <button data-target="exposants">▦ Exposants</button>
+      <button data-target="budget">€ Budget</button>
+      <button data-target="concert">♪ Concert</button>
+      <button data-target="checklist">✓ Checklist</button>
+    </nav>
+    <div class="role-box">
+      <label>Vue active</label>
+      <select id="roleSelect">
+        <option value="admin">Admin</option>
+        <option value="president">Président</option>
+        <option value="commissaire">Commissaire général</option>
+        <option value="tresorier">Trésorier</option>
+        <option value="responsable">Responsable commission</option>
+        <option value="benevole">Bénévole</option>
+        <option value="exposant">Exposant</option>
+        <option value="sponsor">Sponsor</option>
+        <option value="visiteur">Visiteur</option>
+      </select>
+      <p id="roleHint"></p>
+    </div>
+  </aside>
+  <main>
+    <section class="hero screen" id="dashboard" data-section="dashboard">
+      <div>
+        <p class="eyebrow">Fête de l'Agriculture de la Marne 2028</p>
+        <h1>Centre de pilotage événementiel</h1>
+        <p>Tableau de bord vivant pour gérer bénévoles, exposants, tâches, charges, bénéfices, concert DJ Bazalt, rider et checklist terrain.</p>
+        <div class="scenario" id="scenarioTabs"></div>
+      </div>
+      <article class="hero-card"><span>Samedi soir</span><b>Concert DJ Bazalt</b><small>22h00 → 02h00 · Scène principale</small></article>
+    </section>
+
+    <section class="role-summary" id="roleSummary"><div><span>Vue active</span><b id="roleTitle">Admin</b><p id="roleText"></p></div><div id="roleScope"></div></section>
+    <section class="metrics screen" id="metrics" data-section="dashboard"></section>
+    <section class="grid two screen" id="dashPanels" data-section="dashboard"><article class="panel"><h2>Scénario actif</h2><div id="scenarioPanel"></div></article><article class="panel"><h2>Alertes critiques</h2><div id="alerts"></div></article></section>
+
+    <section class="panel screen" id="admin" data-section="admin">
+      <div class="section-head"><div><span class="eyebrow dark">Mode administrateur</span><h2>Ajouter, modifier, supprimer</h2></div><button class="soft" id="resetData">Réinitialiser</button></div>
+      <div class="admin-forms">
+        <form data-form="volunteer"><h3>Bénévole</h3><input name="name" required placeholder="Nom prénom"><input name="commission" placeholder="Commission"><input name="position" placeholder="Poste"><input name="skills" placeholder="Compétences"><button>Ajouter</button></form>
+        <form data-form="exhibitor"><h3>Exposant</h3><input name="company" required placeholder="Entreprise"><input name="contact" placeholder="Contact"><input name="amount" type="number" placeholder="Montant €"><button>Ajouter</button></form>
+        <form data-form="task"><h3>Tâche</h3><input name="task" required placeholder="Tâche"><input name="lead" placeholder="Responsable"><input name="commission" placeholder="Commission"><input name="end" type="date"><button>Ajouter</button></form>
+        <form data-form="budget"><h3>Charge / bénéfice</h3><select name="type"><option value="revenue">Bénéfice</option><option value="expense">Charge</option></select><input name="item" required placeholder="Libellé"><input name="amount" required type="number" placeholder="Montant €"><button>Ajouter</button></form>
+        <form data-form="rider"><h3>Rider Bazalt</h3><input name="category" required placeholder="Catégorie"><input name="requirement" required placeholder="Exigence"><input name="owner" placeholder="Responsable"><button>Ajouter</button></form>
+      </div>
+      <div class="grid two admin-lists"><article><h3>Bénévoles</h3><div id="adminVolunteers"></div></article><article><h3>Exposants</h3><div id="adminExhibitors"></div></article><article><h3>Tâches</h3><div id="adminTasks"></div></article><article><h3>Budget</h3><div id="adminBudget"></div></article><article><h3>Rider</h3><div id="adminRider"></div></article></div>
+    </section>
+
+    <section class="panel screen" id="public" data-section="public"><h2>Site public</h2><div class="cards" id="publicCards"></div></section>
+    <section class="panel screen" id="planning" data-section="planning"><h2>Tâches</h2><div class="table"><table><thead><tr><th>ID</th><th>Tâche</th><th>Responsable</th><th>Commission</th><th>Fin</th><th>Statut</th></tr></thead><tbody id="taskRows"></tbody></table></div></section>
+    <section class="grid two screen" id="benevoles" data-section="benevoles"><article class="panel"><h2>Bénévoles</h2><div id="volunteerList"></div></article><article class="panel"><h2>Besoins</h2><div id="needs"></div></article></section>
+    <section class="panel screen" id="exposants" data-section="exposants"><h2>Exposants & sponsors</h2><div class="cards" id="exhibitorCards"></div></section>
+    <section class="grid two screen" id="budget" data-section="budget"><article class="panel"><h2>Bénéfices</h2><div id="revenues"></div></article><article class="panel"><h2>Charges</h2><div id="expenses"></div></article></section>
+    <section class="grid two screen" id="concert" data-section="concert"><article class="panel"><h2>Concert DJ Bazalt</h2><div id="concertInfo"></div></article><article class="panel"><h2>Rider artiste</h2><div id="riderList"></div></article></section>
+    <section class="panel screen" id="checklist" data-section="checklist"><h2>Checklist opérationnelle</h2><div class="cards" id="checklistCards"></div></section>
+  </main>
+</body>
+</html>
